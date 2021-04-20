@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Covid-19 in the USA</title>
+		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet">
+		<script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+
+		<style>
+		 	body { margin: 0; padding: 0; }
+			#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+			p {
+  			margin: 1px;
+			}
+			h1 {
+  			margin: 1px;
+			}
+      h3{
+        margin: 1px;
+      }
+			strong {
+				margin: 1px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+			<style>
+
+						.MapInfo {
+							position: absolute;
+							top: 5px;
+							left: 5px;
+							padding: 5px;
+							font-family: sans-serif;
+							font-size: 14px;
+							border: 1px solid black;
+							background-color: #fff;
+							opacity: 80%;
+							border-radius: 5px;
+						}
+						.CountryInfo {
+							position: absolute;
+							bottom: 30px;
+							left: 10px;
+							padding: 3px;
+							border: 1px solid black;
+							background-color: #fff;
+							opacity:80%;
+							border-radius: 5px;
+						}
+						.Legend {
+							position: absolute;
+							bottom: 30px;
+							right: 10px;
+							padding: 3px;
+							border: 1px solid black;
+							background-color: #fff;
+							opacity:80%;
+							border-radius: 5px;
+						}
+						.legend-key {
+  						display: inline-block;
+  						border-radius: 20%;
+  						width: 10px;
+  						height: 10px;
+  						margin-right: 5px;
+              border: 1px solid black;
+						}
+
+						#map canvas {
+							cursor: pointer;
+						}
+						#ChangeMap {
+							position: absolute;
+							top: 55px;
+							right: 45px;
+							padding: 6px;
+							border: 1px solid black;
+							background: white;
+							opacity:1;
+							border-radius: 5px;
+						}
+
+			</style>
+
+		<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+		<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+			<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+		<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+		<div id="map"></div>
+
+
+		<button id="ChangeMap" onclick="window.location.href='index2.html'">Where People Have Been</button>
+
+		<div class='MapInfo'>
+			<h1>Where People Want to Travel</h1>
+      <h3>Term 2 January – April 2021, UBC GEOB 472 Class</h3>
+			<p>Data obtianed from class survey</p>
+		</div>
+
+		<div class='CountryInfo'>
+			<div><strong>Country:</strong> <span id='name'>Hover Over a Country</span></div>
+			<div><strong>Number of people who want to visit:</strong> <span id='visit'></span></div>
+		</div>
+
+		<div class='Legend' id="legend">
+			<p style="font-weight: bold;">Number of people <br> who want to visit</p>
+		</div>
+
+		<script>
+			mapboxgl.accessToken = 'pk.eyJ1IjoiYnJpY2VqIiwiYSI6ImNrbDl2eHJ0NTBjMWYyb3BmbW9tcjBtcWsifQ.ZjsCF-3ZKdJjPEDbbnZBhQ';
+			// var bounds = [
+			// 	[-240, -30], // Southwest coordinates
+			// 	[0, 80] // Northeast coordinates
+			// ];
+			var map = new mapboxgl.Map({
+			container: 'map', // container id
+			style: 'mapbox://styles/bricej/cknqdc6m74uoi17ntvdar9iyf', // custom style url from https://studio.mapbox.com/
+			center: [-30, 40], // starting position
+			zoom: 1, // starting zoom
+			maxZoom: 4.5, // maximum zoom
+			minZoom: 1.5 // minimum zoom
+			//maxBounds: bounds // Sets bounds as max
+			});
+
+			map.addControl(
+				new MapboxGeocoder({
+					accessToken: mapboxgl.accessToken,
+					placeholder: 'Search for a Country/Place',
+					mapboxgl: mapboxgl,
+				})
+			);
+			map.addControl(new mapboxgl.NavigationControl());
+
+      var layers = ['1', '2', '3', '4', '9'];
+      var colors = ['#ffffff', '#ff7f9c', '#ff0039', '#7f001c', '#000000'];
+				for (i = 0; i < layers.length; i++) {
+  				var layer = layers[i];
+  				var color = colors[i];
+  				var item = document.createElement('div');
+  				var key = document.createElement('span');
+  				key.className = 'legend-key';
+  				key.style.backgroundColor = color;
+
+  				var value = document.createElement('span');
+  				value.innerHTML = layer;
+  				item.appendChild(key);
+  				item.appendChild(value);
+  				legend.appendChild(item);
+				}
+
+			var StateInfo = document.getElementById('name');
+			var CaseInfo = document.getElementById('visit');
+
+			var qid = null;
+
+			map.on('mousemove', 'wantvisitcolor-amh4av', (e) => {
+
+		  // Set variables equal to the current features
+			var StateName = e.features[0].properties["ADMIN"];
+			var NumVisit = e.features[0].properties["NumWantVisit"];
+
+		  // Check if features exist
+		  if (e.features.length > 0) {
+		    // Display properties
+				StateInfo.textContent = StateName;
+				CaseInfo.textContent = NumVisit;
+
+    		// If qid for the hovered feature is not null, use removeFeatureState to reset to the default behavior
+	    	if (qid) {
+      	map.removeFeatureState({
+        	source: "wantvisitcolor-amh4av",
+        	id: qid
+      	});
+    	}
+
+    	qid = e.features[0].id;
+
+    	// When the mouse moves over the layer, update the feature state for the feature under the mouse
+    	map.setFeatureState({
+      	source: 'wantvisitcolor-amh4av',
+      	id: qid,
+    		}, {
+      		hover: true
+    		});
+  		}
+			});
+
+		</script>
+
+	</body>
+</html>
