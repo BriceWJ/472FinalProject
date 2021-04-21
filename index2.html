@@ -162,13 +162,13 @@
 			map.on('mousemove', 'countriesbeencolor', (e) => {
 
 		  // Set variables equal to the current features
-			var StateName = e.features[0].properties["ADMIN"];
+			var CountryName = e.features[0].properties["ADMIN"];
 			var NumVisit = e.features[0].properties["NumBeen"];
 
 		  // Check if features exist
 		  if (e.features.length > 0) {
 		    // Display properties
-				CountryInfo.textContent = StateName;
+				CountryInfo.textContent = CountryName;
 				ClassInfo.textContent = NumVisit;
 
     		// If qid for the hovered feature is not null, use removeFeatureState to reset to the default behavior
