@@ -154,7 +154,7 @@
   				legend.appendChild(item);
 				}
 
-			var StateInfo = document.getElementById('name');
+			var CountryInfo = document.getElementById('name');
 			var ClassInfo = document.getElementById('visit');
 
 			var qid = null;
@@ -168,7 +168,7 @@
 		  // Check if features exist
 		  if (e.features.length > 0) {
 		    // Display properties
-				StateInfo.textContent = StateName;
+				CountryInfo.textContent = StateName;
 				ClassInfo.textContent = NumVisit;
 
     		// If qid for the hovered feature is not null, use removeFeatureState to reset to the default behavior
