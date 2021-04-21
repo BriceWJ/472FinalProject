@@ -3,7 +3,7 @@
 
 [View Final Project Here](https://bricewj.github.io/472FinalProject/index.html)
 
-##### Maps
+Individual Maps
 
 [View Map 1 here](https://bricewj.github.io/472FinalProject/index.html)
 Image from the map:
