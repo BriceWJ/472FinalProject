@@ -1,7 +1,7 @@
 # GEOB 472 Class Mapped Out
 ### Brice Jonassen, Rachel McCarthy, Rory Stobart
 
-[View Final Project Here](https://bricewj.github.io/472FinalProject/index.html)
+#### [View Final Project Here](https://bricewj.github.io/472FinalProject/index.html)
 
 Individual Maps
 
