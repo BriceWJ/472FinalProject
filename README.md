@@ -8,16 +8,16 @@ Individual Maps
 [View Map 1 here](https://bricewj.github.io/472FinalProject/index.html)
 
 Image from the map:
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/UBC-GEOB472-Spring2021/BriceJ-Exploratory-Lab-2-Interactive-mapping/blob/main/Four%20Corners.png "Four Corners")
 
 [View Map 1 here](https://bricewj.github.io/472FinalProject/index.html)
 
 Image from the map:
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/UBC-GEOB472-Spring2021/BriceJ-Exploratory-Lab-2-Interactive-mapping/blob/main/Four%20Corners.png "Four Corners")
 
 [View Map 1 here](https://bricewj.github.io/472FinalProject/index.html)
 
 Image from the map:
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/UBC-GEOB472-Spring2021/BriceJ-Exploratory-Lab-2-Interactive-mapping/blob/main/Four%20Corners.png "Four Corners")
 
 
