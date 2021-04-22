@@ -18,6 +18,7 @@ Image from map 2:
 [View Map 3 here](https://bricewj.github.io/472FinalProject/index.html)
 
 Image from map 3:
-![alt text](https://github.com/UBC-GEOB472-Spring2021/BriceJ-Exploratory-Lab-2-Interactive-mapping/blob/main/Four%20Corners.png "Four Corners")
+![alt text](https://github.com/BriceWJ/472FinalProject/blob/main/Images/HaveBeen.png "Four Corners")
+![alt text](https://github.com/BriceWJ/472FinalProject/blob/main/Images/WantToTravel.png "Four Corners")
 
 
