@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<title>Covid-19 in the USA</title>
+		<title>GEOB 472 Class</title>
 		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 		<link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet">
 		<script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
@@ -252,21 +252,21 @@
 				}
 
 			var CountryInfo = document.getElementById('name');
-			var VisitInfo = document.getElementById('visit');
+			var ClassInfo = document.getElementById('visit');
 
 			var qid = null;
 
 			map.on('mousemove', 'wantvisitcolor-amh4av', (e) => {
 
 		  // Set variables equal to the current features
-			var StateName = e.features[0].properties["ADMIN"];
-			var VisitInfo = e.features[0].properties["NumWantVisit"];
+			var CountryName = e.features[0].properties["ADMIN"];
+			var NumVisit = e.features[0].properties["NumWantVisit"];
 
 		  // Check if features exist
 		  if (e.features.length > 0) {
 		    // Display properties
-				CountryInfo.textContent = StateName;
-				CaseInfo.textContent = VisitInfo;
+				CountryInfo.textContent = CountryName;
+				ClassInfo.textContent = NumVisit;
 
     		// If qid for the hovered feature is not null, use removeFeatureState to reset to the default behavior
 	    	if (qid) {
