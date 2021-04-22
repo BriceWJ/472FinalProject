@@ -13,8 +13,8 @@ Image from map 1:
 [See where people have been and where they want to go](https://bricewj.github.io/472FinalProject/index.html)
 
 Image from map 2:
-![alt text](https://github.com/BriceWJ/472FinalProject/blob/main/Images/HaveBeen.png "Four Corners")
-![alt text](https://github.com/BriceWJ/472FinalProject/blob/main/Images/WantToTravel.png "Four Corners")
+![alt text](https://github.com/BriceWJ/472FinalProject/blob/main/Images/HaveBeen.png)
+![alt text](https://github.com/BriceWJ/472FinalProject/blob/main/Images/WantToTravel.png)
 
 [See peoples points of interest](https://bricewj.github.io/472FinalProject/PointsOfInterest.html)
 
