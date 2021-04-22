@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title> GEOB 472 Points of Interests </title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    p {
+      margin: 1px;
+      font-family; 'helvetica'
+    }
+
+    h1 {
+      margin: 1px;
+      font: sans-serif;
+    }
+    h3{
+      margin: 1px;
+      font: sans-serif;
+      text-decoration: underline;
+    }
+
+    strong {
+      margin: 1px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <style>
+
+    .mapboxgl-ctrl-geocoder {
+      width: 319px!important;
+      margin-right: 35px!important;
+      margin-top: 24px!important;
+
+      background-color: #4a4a4a!important;
+
+}
+
+    .overlay {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+
+    .titlebox {
+      font-family: 'Helvetica', sans-serif;
+      font-size: 18px;
+      color: #fff;
+      background-color: #1a1a1a;
+      text-align: left;
+      margin-top: 12px;
+      margin-left: 20px;
+      width: 97.15%;
+      height: 92px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .namebox {
+      font-family: 'Helvetica', sans-serif;
+      font-size: 12px;
+      color: #fff;
+      background-color:#1a1a1a;
+      text-align: center;
+      margin-top: 10px;
+      width: 400;
+      height: 40;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .map-overlay {
+      position: absolute;
+      color: #000;
+      font-family: 'Helvetica', sans-serif;
+      margin-top: 5px;
+      left: 0;
+      margin-left: 25px;
+      font-size: 20px;
+    }
+
+
+    .boxleft {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 25px;
+      height: 100%;
+      background-color: black;
+    }
+    .boxright {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 25px;
+      height: 100%;
+      background-color: black;
+    }
+    .header {
+      position: fixed;
+      font-family: sans-serif;
+      margin-top: 0px;
+      margin-left: 0px;
+      padding: 5px;
+      width: 100%;
+      height: 10%;
+      font-size: 14px;
+      background-color: #000;
+    }
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      height: 50px;
+      width: 100%;
+      background-color: black;
+      text-align: center;
+
+}
+    .MapInfo {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      padding: 5px;
+      font-family: arial;
+      font-size: 14px;
+      border: 1px solid black;
+      background-color: #fff;
+      opacity: 80%;
+      border-radius: 5px;
+    }
+    .Classinfo {
+      position: absolute;
+      width: 350px;
+      bottom: 10px;
+      right: : 1px;
+      padding: 3px;
+      margin-left: 35px;
+      margin-bottom: 50px;
+      background-color: #fff;
+      opacity: 80%;
+      border-radius: 5px;
+    }
+    #map canvas {
+      cursor: pointer;
+    }
+    #zoomTo {
+      font-family: 'Helvetica';
+      color: white;
+      position: absolute;
+      margin-top: 68px;
+      top: 0px;
+      right: 35px;
+      padding: 6px;
+      background: #4a4a4a;
+      opacity: 1;
+      border-radius: 5px;
+    }
+
+    #zoomOut {
+      font-family: 'Helvetica';
+      color: white;
+      position: absolute;
+      margin-top: 68px;
+      top: 0px;
+      right: 175px;
+      padding: 6px;
+      background: #4a4a4a;
+      opacity: 1;
+      border-radius: 5px;
+    }
+
+  </style>
+  <body>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+  <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+
+   <div id="map"></div>
+  <div class='header'>
+    <div class='titlebox'>
+      <h1 style='margin-left:25px;margin-top:12px'> GEOB 472 Points of Interest</h1>
+      <p style='margin-left:25px'> Hover Over the Points to Learn More!</p>
+    </div>
+  </div><div class="footer">
+  <div class='namebox'><strong><p style='margin-left:25px;margin-right:25px'>GEOB 472  •  Brice Jonassen  •  Rachel McCarthy  •  Rory Stobart</p></strong></div>
+</div>
+    <div class="boxleft"></div>
+    <div class="boxright"></div>
+
+
+  <button id="zoomTo">Zoom to Vancouver</button>
+  <button id="zoomOut">Zoom Out to See the World</button>
+
+  <div class='MapInfo'>
+    <h1> </h1>
+
+  </div>
+  <div class="Classinfo">
+    <div><strong style='font-family:helvetica;margin-left:10px'>Alias:</strong> <span id='Alias'></span></div>
+    <div><strong style='font-family:helvetica;margin-left:10px'>Major:</strong> <span id='Major'></span></div>
+    <div><strong style='font-family:helvetica;margin-left:10px'>Favorite Place to Visit:</strong> <span id='FavPlace'></span></div>
+    <div><strong style='font-family:helvetica;margin-left:10px'>Favorite Place in Vancouver:</strong> <span id='FavPlaceVan'></span></div>
+    <div><strong style='font-family:helvetica;margin-left:10px'>Favorite Hike or Trail:</strong> <span id='Hikes'></span></div>
+    <div><strong style='font-family:helvetica;margin-left:10px'>Favorite Museum in the World:</strong> <span id='FavMuseum'></span></div>
+  </div>
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicmF5cmF5bWNjIiwiYSI6ImNrbGJrNGMwYjMwY2wyb3FqdWt0MWl1NmgifQ.J_aeRSWnUEk0ZyqNZOf-hg';
+
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/rayraymcc/cknp6wwpf0w9917qp01xux45v', // custom style url from https://studio.mapbox.com/
+      center: [-28.6731, 30.5994], // starting position
+      zoom: 1.5, // starting zoom
+      maxZoom: 16, // maximum zoom
+      minZoom: 1.25, // minimum zoom
+    });
+
+    map.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        placeholder: 'Search for a Place',
+        mapboxgl: mapboxgl,
+      })
+    );
+
+    document.getElementById('zoomTo').addEventListener('click', function() {
+      map.fitBounds([
+        [-123.1367, 49.09],
+        [-122.9227, 49.4327]
+      ]);
+    });
+    document.getElementById('zoomOut').addEventListener('click', function() {
+      map.fitBounds([
+        [180, -90],
+        [-180, 90]
+      ]);
+    });
+
+    var AliasInfo = document.getElementById('Alias');
+    var MajorInfo = document.getElementById('Major');
+    var FavPlaceInfo = document.getElementById('FavPlace');
+    var FavPlaceVanInfo = document.getElementById('FavPlaceVan');
+    var HikesInfo = document.getElementById('Hikes');
+    var FavMuseumInfo = document.getElementById('FavMuseum');
+
+    var qid = null;
+
+    map.on('mousemove', 'hikes-2akuw8', (e) => {
+
+    // Set variables equal to the current features
+    var ClassAlias = e.features[0].properties["Alias"];
+    var ClassMajor = e.features[0].properties["Major"];
+    var ClassFavPlace = e.features[0].properties["FavPlace"];
+    var ClassFavPV = e.features[0].properties["FavPlaceVan"];
+    var ClassHikes = e.features[0].properties["Hikes"];
+    var ClassFavM = e.features[0].properties["FavMuseum"];
+
+    // Check if features exist
+    if (e.features.length > 0) {
+      // Display properties
+      AliasInfo.textContent = ClassAlias;
+      MajorInfo.textContent = ClassMajor;
+      FavPlaceInfo.textContent = ClassFavPlace;
+      FavPlaceVanInfo.textContent = ClassFavPV;
+      HikesInfo.textContent = ClassHikes;
+      FavMuseumInfo.textContent = ClassFavM;
+
+      // If qid for the hovered feature is not null, use removeFeatureState to reset to the default behavior
+      if (qid) {
+      map.removeFeatureState({
+        source: "hikes-2akuw8",
+        id: qid
+      });
+    }
+
+    qid = e.features[0].id;
+
+    // When the mouse moves over the layer, update the feature state for the feature under the mouse
+    map.setFeatureState({
+      source:  'hikes-2akuw8',
+      id: qid,
+      }, {
+        hover: true
+      });
+    }
+    });
+
+    map.on('mousemove', 'faveplace-58wcuc', (e) => {
+
+    // Set variables equal to the current features
+    var ClassAlias = e.features[0].properties["Alias"];
+    var ClassMajor = e.features[0].properties["Major"];
+    var ClassFavPlace = e.features[0].properties["FavPlace"];
+    var ClassFavPV = e.features[0].properties["FavPlaceVan"];
+    var ClassHikes = e.features[0].properties["Hikes"];
+    var ClassFavM = e.features[0].properties["FavMuseum"];
+
+    // Check if features exist
+    if (e.features.length > 0) {
+      // Display properties
+      AliasInfo.textContent = ClassAlias;
+      MajorInfo.textContent = ClassMajor;
+      FavPlaceInfo.textContent = ClassFavPlace;
+      FavPlaceVanInfo.textContent = ClassFavPV;
+      HikesInfo.textContent = ClassHikes;
+      FavMuseumInfo.textContent = ClassFavM;
+
+      // If qid for the hovered feature is not null, use removeFeatureState to reset to the default behavior
+      if (qid) {
+      map.removeFeatureState({
+        source: "faveplace-58wcuc",
+        id: qid
+      });
+    }
+
+    qid = e.features[0].id;
+
+    // When the mouse moves over the layer, update the feature state for the feature under the mouse
+    map.setFeatureState({
+      source:  'faveplace-58wcuc',
+      id: qid,
+      }, {
+        hover: true
+      });
+    }
+    });
+
+    map.on('mousemove', 'museum-68a5ii', (e) => {
+
+    // Set variables equal to the current features
+    var ClassAlias = e.features[0].properties["Alias"];
+    var ClassMajor = e.features[0].properties["Major"];
+    var ClassFavPlace = e.features[0].properties["FavPlace"];
+    var ClassFavPV = e.features[0].properties["FavPlaceVan"];
+    var ClassHikes = e.features[0].properties["Hikes"];
+    var ClassFavM = e.features[0].properties["FavMuseum"];
+
+    // Check if features exist
+    if (e.features.length > 0) {
+      // Display properties
+      AliasInfo.textContent = ClassAlias;
+      MajorInfo.textContent = ClassMajor;
+      FavPlaceInfo.textContent = ClassFavPlace;
+      FavPlaceVanInfo.textContent = ClassFavPV;
+      HikesInfo.textContent = ClassHikes;
+      FavMuseumInfo.textContent = ClassFavM;
+
+      // If qid for the hovered feature is not null, use removeFeatureState to reset to the default behavior
+      if (qid) {
+      map.removeFeatureState({
+        source: "museum-68a5ii",
+        id: qid
+      });
+    }
+
+    qid = e.features[0].id;
+
+    // When the mouse moves over the layer, update the feature state for the feature under the mouse
+    map.setFeatureState({
+      source:  'museum-68a5ii',
+      id: qid,
+      }, {
+        hover: true
+      });
+    }
+    });
+
+    map.on('mousemove', 'faveplacevan-9vowra', (e) => {
+
+    // Set variables equal to the current features
+    var ClassAlias = e.features[0].properties["Alias"];
+    var ClassMajor = e.features[0].properties["Major"];
+    var ClassFavPlace = e.features[0].properties["FavPlace"];
+    var ClassFavPV = e.features[0].properties["FavPlaceVan"];
+    var ClassHikes = e.features[0].properties["Hikes"];
+    var ClassFavM = e.features[0].properties["FaveMuseum"];
+
+    // Check if features exist
+    if (e.features.length > 0) {
+      // Display properties
+      AliasInfo.textContent = ClassAlias;
+      MajorInfo.textContent = ClassMajor;
+      FavPlaceInfo.textContent = ClassFavPlace;
+      FavPlaceVanInfo.textContent = ClassFavPV;
+      HikesInfo.textContent = ClassHikes;
+      FavMuseumInfo.textContent = ClassFavM;
+
+      // If qid for the hovered feature is not null, use removeFeatureState to reset to the default behavior
+      if (qid) {
+      map.removeFeatureState({
+        source: "faveplacevan-9vowra",
+        id: qid
+      });
+    }
+
+    qid = e.features[0].id;
+
+    // When the mouse moves over the layer, update the feature state for the feature under the mouse
+    map.setFeatureState({
+      source:  'faveplacevan-9vowra',
+      id: qid,
+      }, {
+        hover: true
+      });
+    }
+    });
+
+
+  </script>
+
+</body>
+
+</html>
